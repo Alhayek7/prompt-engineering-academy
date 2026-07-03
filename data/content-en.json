@@ -1,0 +1,29 @@
+{
+  "stages": {
+    "1": {
+      "title": "📖 Fundamentals",
+      "description": "Learn the basics of prompt crafting: clarity, goals, audience, and context.",
+      "body": "<p>Prompt Engineering is the art of crafting instructions for AI models to get the best possible results.</p><h4>🎯 Key Elements of a Good Prompt:</h4><ul><li><strong>Clarity:</strong> Use direct and specific language</li><li><strong>Goal:</strong> Clearly state what you want</li><li><strong>Audience:</strong> Who will read or use the output?</li><li><strong>Context:</strong> Provide sufficient background on the topic</li></ul><div class='example-box'><strong>✏️ Example:</strong><br />❌ Weak: \"Write something about technology\"<br />✅ Strong: \"Write a 200-word article about AI in medicine, aimed at medical students, in simple English\"</div><h4>💡 Golden Tip:</h4><p>The more details you provide, the fewer guesses the model makes, and the more accurate the result.</p>"
+    },
+    "2": {
+      "title": "📝 Adding Details",
+      "description": "Learn how to control length, tone, format, and constraints in your prompts.",
+      "body": "<p>After mastering the basics, it's time to add precise details that make your prompts professional.</p><h4>🎛️ Key Control Elements:</h4><ul><li><strong>Length:</strong> Specify the number of words or pages</li><li><strong>Tone:</strong> Formal, friendly, motivational, technical, etc.</li><li><strong>Format:</strong> Bullet points, paragraphs, tables, numbered lists</li><li><strong>Constraints:</strong> Explicitly tell the model what to avoid</li></ul><div class='example-box'><strong>✏️ Advanced Example:</strong><br />\"Write a marketing plan for a new product, 300 words long, with a motivational tone, in bullet points, and do not mention competitors by name.\"</div>"
+    },
+    "3": {
+      "title": "⚡ Advanced Techniques",
+      "description": "Learn CoT, Few-shot, and task decomposition techniques for smarter responses.",
+      "body": "<h4>🧠 1. Chain of Thought (CoT):</h4><p>Ask the model to outline its reasoning steps before answering.</p><div class='example-box'>\"Let's think step by step: First... Second... Third... Now the final answer is...\"</div><h4>📚 2. Few-shot Learning:</h4><p>Provide 2-3 examples of inputs and outputs you want.</p><div class='example-box'>\"Example 1: Input X → Output Y<br /> Example 2: Input A → Output B<br /> Now: Input Z → ?\"</div><h4>🧩 3. Task Decomposition:</h4><p>Break down complex tasks into smaller steps.</p><div class='example-box'>\"I want you to: 1. Analyze the audience 2. Choose channels 3. Write the message 4. Summarize everything\"</div>"
+    },
+    "4": {
+      "title": "🔄 Interactive & Iterative",
+      "description": "Learn to build step-by-step dialogues, control creativity, and use multiple roles.",
+      "body": "<h4>💬 1. Step-by-step Dialogue:</h4><p>Don't ask for everything at once; build the response step by step.</p><h4>🎨 2. Controlling Creativity (Temperature):</h4><ul><li><strong>0.0:</strong> Precise and predictable (suitable for facts)</li><li><strong>0.7:</strong> Balanced (default)</li><li><strong>1.0:</strong> Creative and surprising (suitable for new ideas)</li></ul><h4>🎭 3. Multiple Roles:</h4><div class='example-box'>\"You now combine 3 expertise levels: Marketing Expert, Data Analyst, and Content Writer. I want an analysis from each perspective.\"</div><h4>🚫 4. Negative Prompts:</h4><div class='example-box'>\"Write an article about technology, but: do not mention company names, do not use complex terms, and do not exceed 150 words.\"</div>"
+    },
+    "5": {
+      "title": "🏆 Professional & Building",
+      "description": "Learn to build personal templates, self-evaluation, security, and SKILL.md files.",
+      "body": "<h4>📋 1. Personal Templates:</h4><p>Create a fixed template you use for any task, then fill in the blanks as needed.</p><h4>🔍 2. Self-Evaluation of Outputs:</h4><p>Ask the model to evaluate its own response before presenting it.</p><div class='example-box'>\"After you write the post, evaluate it according to: Does it achieve the goal? Is the tone appropriate? How can it be improved?\"</div><h4>🔒 3. Prompt Security:</h4><p>Protect your prompts from injection attacks and avoid placing sensitive information in prompts.</p><h4>📄 4. SKILL.md Files:</h4><p>Package your skills into structured files that any model can read and execute automatically.</p>"
+    }
+  }
+}

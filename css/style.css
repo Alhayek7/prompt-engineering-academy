@@ -1,0 +1,965 @@
+/* ================================================================
+   المتغيرات العامة (Colors + Fonts)
+   ================================================================ */
+:root {
+    /* الألوان المعتمدة من الشعار (مستخرجة مباشرة من صورة اللوجو) */
+    --color-dark-blue: #081E42;
+    --color-deep-blue: #173966;
+    --color-mid-blue: #25538A;
+    --color-bright-blue: #3780BF;
+    --color-light-blue: #6FB7E0;
+    --color-lighter-blue: #A9D4EC;
+    --color-white: #FFFFFF;
+    --color-silver: #E0E1DD;
+    --color-text: #E8E8E8;
+    --color-text-dim: #8499AD;
+
+    /* الخطوط المعتمدة */
+    --font-serif: 'Cinzel', 'Times New Roman', serif;
+    --font-sans: 'Montserrat', 'Inter', 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+    /* تأثيرات */
+    --glow-blue: 0 0 30px rgba(0, 212, 255, 0.3);
+    --glass-bg: rgba(11, 37, 69, 0.65);
+    --glass-border: rgba(144, 224, 239, 0.15);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --border-radius: 16px;
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ================================================================
+   إعادة ضبط عامة
+   ================================================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--color-dark-blue);
+    color: var(--color-text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.7;
+}
+
+/* ================================================================
+   شريط التمرير المخصص
+   ================================================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-dark-blue);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-mid-blue);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-bright-blue);
+}
+
+/* ================================================================
+   الأزرار والعناوين الأساسية
+   ================================================================ */
+a {
+    color: var(--color-light-blue);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--color-lighter-blue);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    background: linear-gradient(135deg, var(--color-lighter-blue), var(--color-light-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--color-lighter-blue);
+    margin-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--color-light-blue);
+}
+
+/* ================================================================
+   Glassmorphism
+   ================================================================ */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--border-radius);
+}
+
+/* ================================================================
+   Navbar
+   ================================================================ */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 2rem;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(144, 224, 239, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+}
+
+.brand-icon {
+    font-size: 1.5rem;
+    color: var(--color-lighter-blue);
+}
+
+.brand-text {
+    font-family: var(--font-serif);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--color-white);
+    letter-spacing: 0.1em;
+}
+
+.brand-text .highlight {
+    color: var(--color-light-blue);
+}
+
+.brand-sub {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: var(--color-light-blue);
+    letter-spacing: 0.05em;
+    margin-left: 0.25rem;
+}
+
+.nav-lang {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--color-text-dim);
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    border-color: var(--color-light-blue);
+    color: var(--color-white);
+}
+
+.lang-btn.active {
+    background: var(--color-mid-blue);
+    border-color: var(--color-mid-blue);
+    color: var(--color-white);
+    box-shadow: 0 0 20px rgba(0, 119, 182, 0.3);
+}
+
+.nav-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-label {
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+}
+
+.progress-bar {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-mid-blue), var(--color-lighter-blue));
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-light-blue);
+    min-width: 38px;
+    text-align: right;
+}
+
+/* ================================================================
+   المحتوى الرئيسي
+   ================================================================ */
+.main-content {
+    padding-top: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* ================================================================
+   Hero (الصفحة الرئيسية)
+   ================================================================ */
+.hero {
+    padding: 3rem 2.5rem;
+    text-align: center;
+    margin: 2rem auto 3rem;
+    max-width: 900px;
+}
+
+.hero-3d-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+}
+
+.hero-title {
+    margin-bottom: 0.75rem;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    color: var(--color-text-dim);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-lighter-blue);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+}
+
+/* ================================================================
+   الأزرار
+   ================================================================ */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-mid-blue), var(--color-bright-blue));
+    border: none;
+    padding: 0.9rem 2.8rem;
+    border-radius: 50px;
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 25px rgba(0, 119, 182, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(0, 119, 182, 0.5);
+}
+
+.btn-primary.glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%,
+    100% {
+        box-shadow: 0 4px 25px rgba(0, 119, 182, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 50px rgba(144, 224, 239, 0.4);
+    }
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--color-mid-blue);
+    padding: 0.7rem 1.8rem;
+    border-radius: 50px;
+    color: var(--color-light-blue);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--color-mid-blue);
+    color: var(--color-white);
+    box-shadow: 0 4px 25px rgba(0, 119, 182, 0.3);
+}
+
+/* ================================================================
+   خريطة المراحل
+   ================================================================ */
+.stages-map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 3rem auto;
+    padding: 1.5rem;
+    max-width: 800px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--glass-border);
+}
+
+.stage-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0.5rem;
+}
+
+.stage-node:hover {
+    transform: scale(1.05);
+}
+
+.node-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--color-text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-text-dim);
+    transition: var(--transition);
+}
+
+.stage-node.completed .node-circle {
+    border-color: var(--color-light-blue);
+    background: var(--color-mid-blue);
+    color: var(--color-white);
+    box-shadow: 0 0 30px rgba(0, 119, 182, 0.3);
+}
+
+.stage-node.active .node-circle {
+    border-color: var(--color-lighter-blue);
+    background: var(--color-bright-blue);
+    color: var(--color-white);
+    box-shadow: 0 0 40px rgba(144, 224, 239, 0.4);
+}
+
+.stage-node.locked .node-circle {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.node-label {
+    font-size: 0.7rem;
+    margin-top: 0.4rem;
+    color: var(--color-text-dim);
+    text-align: center;
+}
+
+.stage-line {
+    width: 30px;
+    height: 2px;
+    background: var(--color-text-dim);
+    opacity: 0.3;
+}
+
+/* ================================================================
+   المراحل الفردية
+   ================================================================ */
+.stage-section {
+    display: none;
+    animation: fadeInUp 0.6s ease;
+}
+
+.stage-section.active {
+    display: block;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stage-content {
+    padding: 2rem 2.5rem;
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+.stage-content .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stage-content .stage-number {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-mid-blue);
+    opacity: 0.5;
+}
+
+.stage-content .stage-title {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: var(--color-lighter-blue);
+}
+
+.stage-content .stage-description {
+    color: var(--color-text-dim);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.stage-content .stage-body {
+    margin-bottom: 2rem;
+}
+
+.stage-content .stage-body ul,
+.stage-content .stage-body ol {
+    padding-right: 1.5rem;
+    margin: 1rem 0;
+}
+
+.stage-content .stage-body li {
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+}
+
+.stage-content .stage-body .example-box {
+    background: rgba(0, 119, 182, 0.1);
+    border-right: 4px solid var(--color-mid-blue);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.stage-content .stage-body .example-box strong {
+    color: var(--color-lighter-blue);
+}
+
+/* ================================================================
+   الاختبارات (Quiz)
+   ================================================================ */
+.quiz-container {
+    margin-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 2rem;
+}
+
+.quiz-question {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--glass-border);
+}
+
+.quiz-question .q-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-white);
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.quiz-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--color-text);
+}
+
+.quiz-options label:hover {
+    background: rgba(0, 119, 182, 0.1);
+}
+
+.quiz-options input[type="radio"] {
+    accent-color: var(--color-mid-blue);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.quiz-result {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.quiz-result.pass {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.quiz-result.fail {
+    background: rgba(255, 45, 149, 0.1);
+    border: 1px solid rgba(255, 45, 149, 0.3);
+}
+
+.quiz-result .score {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-lighter-blue);
+}
+
+/* ================================================================
+   حاسبة التوكنز
+   ================================================================ */
+.token-section {
+    padding: 2rem 2.5rem;
+    margin: 2rem auto;
+    max-width: 900px;
+}
+
+.token-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.token-input-group textarea {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.token-input-group textarea:focus {
+    outline: none;
+    border-color: var(--color-light-blue);
+    box-shadow: 0 0 30px rgba(144, 224, 239, 0.1);
+}
+
+.token-input-group textarea::placeholder {
+    color: var(--color-text-dim);
+}
+
+.token-results {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.result-item {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 119, 182, 0.05);
+    border-radius: 8px;
+}
+
+.result-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-dim);
+    margin-bottom: 0.25rem;
+}
+
+.result-value {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-lighter-blue);
+}
+
+.token-tips {
+    padding: 1rem 1.5rem;
+    background: rgba(0, 119, 182, 0.05);
+    border-radius: 8px;
+    border-right: 3px solid var(--color-light-blue);
+}
+
+.token-tips ul {
+    margin: 0.5rem 0 0 0;
+    padding-right: 1.2rem;
+}
+
+.token-tips li {
+    color: var(--color-text-dim);
+    font-size: 0.9rem;
+}
+
+/* ================================================================
+   لوحة التحكم (Dashboard)
+   ================================================================ */
+.dashboard-section {
+    padding: 2rem 2.5rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.dashboard-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.dashboard-card h3 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-text-dim);
+    margin-bottom: 0.5rem;
+}
+
+.dash-number {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--color-lighter-blue);
+}
+
+.dash-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.dash-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-mid-blue), var(--color-lighter-blue));
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+/* ================================================================
+   الشهادة
+   ================================================================ */
+.certificate-section {
+    padding: 2rem 2.5rem;
+    margin: 2rem auto;
+    max-width: 1100px;
+    text-align: center;
+}
+
+.certificate-preview {
+    margin: 2rem auto;
+    max-width: 900px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+.cert-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+/* ================================================================
+   Footer
+   ================================================================ */
+.footer {
+    text-align: center;
+    padding: 1.5rem;
+    margin: 3rem 0 0 0;
+    border-radius: 0;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.85rem;
+    color: var(--color-text-dim);
+}
+
+.footer-divider {
+    margin: 0 0.75rem;
+    opacity: 0.3;
+}
+
+/* ================================================================
+   التجاوب مع الشاشات
+   ================================================================ */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .nav-brand .brand-text {
+        font-size: 1.1rem;
+    }
+    .nav-brand .brand-sub {
+        font-size: 0.7rem;
+    }
+
+    .nav-progress {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+    }
+    .progress-bar {
+        width: 60%;
+    }
+
+    .hero {
+        padding: 2rem 1.5rem;
+    }
+    .hero-stats {
+        gap: 1.5rem;
+    }
+
+    .stages-map {
+        gap: 0.3rem;
+        padding: 1rem;
+    }
+    .stage-line {
+        width: 15px;
+    }
+    .node-circle {
+        width: 38px;
+        height: 38px;
+        font-size: 0.9rem;
+    }
+    .node-label {
+        font-size: 0.6rem;
+    }
+
+    .stage-content {
+        padding: 1.5rem;
+    }
+    .stage-content .stage-title {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cert-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* ================================================================
+   الشعار الجديد - GOAI Academy Logo
+   ================================================================ */
+
+/* شعار في شريط التنقل */
+.nav-logo {
+    height: 45px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 119, 182, 0.3));
+    transition: var(--transition);
+}
+
+.nav-logo:hover {
+    filter: drop-shadow(0 0 20px rgba(144, 224, 239, 0.5));
+    transform: scale(1.05);
+}
+
+/* شعار في الهيرو (الصفحة الرئيسية) */
+.hero-logo-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-logo {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(0, 119, 182, 0.2));
+    animation: floatLogo 4s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* إخفاء النص الاحتياطي عند ظهور الصورة */
+.brand-text {
+    display: none;
+}
+
+.brand-sub {
+    display: none;
+}
+
+/* إظهار النص فقط إذا لم تظهر الصورة */
+.nav-logo:not([src]), .nav-logo[src=""] {
+    display: none;
+}
+
+.nav-logo:not([src]) ~ .brand-text,
+.nav-logo[src=""] ~ .brand-text {
+    display: inline;
+}
+
+/* ================================================================
+   استجابة للشعار على الشاشات الصغيرة
+   ================================================================ */
+@media (max-width: 768px) {
+    .nav-logo {
+        height: 35px;
+        max-width: 90px;
+    }
+
+    .hero-logo {
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-logo {
+        height: 28px;
+        max-width: 70px;
+    }
+
+    .hero-logo {
+        max-width: 130px;
+    }
+}

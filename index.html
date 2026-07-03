@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOAI Academy | أكاديمية جي أو إيه آي</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js">
+    </script>
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/3d-overlay.css" />
+    <link rel="stylesheet" href="css/certificate.css" />
+
+    <!-- ===== Favicon ===== -->
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+
+    <!-- ========================================================= -->
+    <!-- 1. حاوية الـ 3D (خلفية تفاعلية)                           -->
+    <!-- ========================================================= -->
+    <div id="three-container" aria-hidden="true"></div>
+
+    <!-- ========================================================= -->
+    <!-- 2. شريط التنقل (Navbar) - تم تعديل الشعار هنا            -->
+    <!-- ========================================================= -->
+    <nav class="navbar glass" role="navigation" aria-label="القائمة الرئيسية">
+        <div class="nav-brand">
+            <!-- ===== 🟢 الشعار الجديد (صورة) ===== -->
+            <!-- استبدل الرابط أدناه برابط شعارك الحقيقي -->
+            <img src="assets/images/logo-goai.png" alt="GOAI Academy Logo" class="nav-logo" />
+            
+            <!-- ===== 📝 النص الاحتياطي (يظهر إذا لم تظهر الصورة) ===== -->
+            <span class="brand-text">GOAI</span>
+            <span class="brand-sub">Academy</span>
+        </div>
+
+        <div class="nav-lang">
+            <button class="lang-btn active" data-lang="ar" aria-label="اللغة العربية">عربي</button>
+            <button class="lang-btn" data-lang="en" aria-label="English">English</button>
+        </div>
+
+        <div class="nav-progress">
+            <span class="progress-label" data-i18n="progress">التقدم</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="mainProgress" style="width:0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <span class="progress-text" id="progressPercent">0%</span>
+        </div>
+    </nav>
+
+    <!-- ========================================================= -->
+    <!-- 3. المحتوى الرئيسي                                        -->
+    <!-- ========================================================= -->
+    <main class="main-content">
+
+        <!-- ========================================================= -->
+        <!-- 3.1 الصفحة الرئيسية (Hero)                                -->
+        <!-- ========================================================= -->
+        <section id="home" class="stage-section active">
+            <div class="hero glass">
+                <!-- ===== 🟢 الشعار 3D أو صورة الشعار في الهيرو ===== -->
+                <div class="hero-logo-container">
+                    <img src="assets/images/logo-goai-hero.png" alt="GOAI Academy" class="hero-logo" />
+                </div>
+
+                <h1 class="hero-title" data-i18n="hero_title">
+                    🚀 أتقن فن هندسة الأوامر
+                </h1>
+                <p class="hero-subtitle" data-i18n="hero_subtitle">
+                    تعلم كيفية صياغة الأوامر المثالية لنماذج الذكاء الاصطناعي
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label" data-i18n="stages">مراحل</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label" data-i18n="exercises">تمرين</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label" data-i18n="quizzes">اختبار</span>
+                    </div>
+                </div>
+
+                <button class="btn-primary glow" onclick="startJourney()" data-i18n="start_btn">
+                    🚀 ابدأ الرحلة
+                </button>
+            </div>
+
+            <!-- خريطة المراحل -->
+            <div class="stages-map">
+                <div class="stage-node" data-stage="1" onclick="goToStage(1)">
+                    <div class="node-circle">1</div>
+                    <span class="node-label" data-i18n="stage1">الأساسيات</span>
+                </div>
+                <div class="stage-line"></div>
+                <div class="stage-node" data-stage="2" onclick="goToStage(2)">
+                    <div class="node-circle">2</div>
+                    <span class="node-label" data-i18n="stage2">التفاصيل</span>
+                </div>
+                <div class="stage-line"></div>
+                <div class="stage-node" data-stage="3" onclick="goToStage(3)">
+                    <div class="node-circle">3</div>
+                    <span class="node-label" data-i18n="stage3">المتقدّم</span>
+                </div>
+                <div class="stage-line"></div>
+                <div class="stage-node" data-stage="4" onclick="goToStage(4)">
+                    <div class="node-circle">4</div>
+                    <span class="node-label" data-i18n="stage4">التفاعلي</span>
+                </div>
+                <div class="stage-line"></div>
+                <div class="stage-node" data-stage="5" onclick="goToStage(5)">
+                    <div class="node-circle">5</div>
+                    <span class="node-label" data-i18n="stage5">الاحتراف</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- 3.2 حاوية المراحل (يتم توليدها عبر JavaScript)           -->
+        <!-- ========================================================= -->
+        <div id="stages-container"></div>
+
+        <!-- ========================================================= -->
+        <!-- 3.3 حاسبة التوكنز                                         -->
+        <!-- ========================================================= -->
+        <section id="token-calculator" class="stage-section">
+            <div class="glass token-section">
+                <h2 data-i18n="token_title">🧮 حاسبة التوكنز</h2>
+                <p data-i18n="token_sub">تعرف على عدد التوكنز التي يستهلكها نصك</p>
+
+                <div class="token-input-group">
+                    <textarea id="tokenInput" placeholder="اكتب أو الصق النص هنا..." rows="6" aria-label="نص لحساب التوكنز"></textarea>
+                    <button class="btn-secondary" onclick="calculateTokens()" data-i18n="token_calc_btn">
+                        🔢 احسب التوكنز
+                    </button>
+                </div>
+
+                <div id="tokenResults" class="token-results" style="display:none;">
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="result-label" data-i18n="token_count">عدد التوكنز</span>
+                            <span class="result-value" id="tokenCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label" data-i18n="word_count">عدد الكلمات</span>
+                            <span class="result-value" id="wordCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label" data-i18n="char_count">عدد الأحرف</span>
+                            <span class="result-value" id="charCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label" data-i18n="token_cost">التكلفة التقريبية</span>
+                            <span class="result-value" id="tokenCost">$0.0000</span>
+                        </div>
+                    </div>
+                    <div class="token-tips" id="tokenTips">
+                        <p data-i18n="token_tips_title">💡 نصائح لتقليل التوكنز:</p>
+                        <ul id="tokenTipsList">
+                            <li data-i18n="token_tip1">استخدم كلمات مختصرة بدل الجمل الطويلة</li>
+                            <li data-i18n="token_tip2">أزل التكرار غير الضروري</li>
+                            <li data-i18n="token_tip3">ضع الأهم في البداية والنهاية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- 3.4 لوحة التحكم (Dashboard)                              -->
+        <!-- ========================================================= -->
+        <section id="dashboard" class="stage-section">
+            <div class="glass dashboard-section">
+                <h2 data-i18n="dashboard_title">📊 لوحة التحكم</h2>
+                <p data-i18n="dashboard_sub">تابع تقدمك وإحصائياتك</p>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3 data-i18n="stages_completed">المراحل المكتملة</h3>
+                        <div class="dash-number" id="dashStages">0/5</div>
+                        <div class="dash-bar">
+                            <div class="dash-fill" id="dashStagesFill" style="width:0%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3 data-i18n="avg_score">متوسط الدرجات</h3>
+                        <div class="dash-number" id="dashAvgScore">0%</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3 data-i18n="quizzes_passed">الاختبارات المجتازة</h3>
+                        <div class="dash-number" id="dashQuizzes">0/5</div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3 data-i18n="total_time">الوقت المستغرق</h3>
+                        <div class="dash-number" id="dashTime">0 دق</div>
+                    </div>
+
+                    <div class="dashboard-card full-width">
+                        <h3 data-i18n="stage_performance">أداء المراحل</h3>
+                        <div id="stagePerformanceChart">
+                            <!-- سيتم توليده عبر JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card full-width">
+                        <h3 data-i18n="recommendations">📌 توصيات للتحسين</h3>
+                        <ul id="recommendationsList">
+                            <li data-i18n="rec_default">أكمل جميع المراحل للحصول على توصيات مخصصة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================= -->
+        <!-- 3.5 الشهادة (تظهر عند اكتمال جميع المراحل)              -->
+        <!-- ========================================================= -->
+        <section id="certificate-section" class="stage-section">
+            <div class="glass certificate-section">
+                <h2 data-i18n="cert_title">🎓 شهادة الإنجاز</h2>
+                <p data-i18n="cert_sub">تهانينا! لقد أكملت جميع المراحل بنجاح</p>
+
+                <div id="certificatePreview" class="certificate-preview">
+                    <!-- سيتم إنشاء الشهادة عبر JavaScript -->
+                </div>
+
+                <div class="cert-actions">
+                    <button class="btn-primary" onclick="generateCertificate()" data-i18n="cert_request_btn">
+                        📜 طلب الشهادة
+                    </button>
+                    <button class="btn-secondary" onclick="shareLinkedIn()" data-i18n="cert_share_btn">
+                        🔗 مشاركة على لينكدإن
+                    </button>
+                    <button class="btn-secondary" onclick="downloadCertificate()" data-i18n="cert_download_btn">
+                        ⬇️ تحميل PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================================= -->
+    <!-- 4. التذييل (Footer)                                       -->
+    <!-- ========================================================= -->
+    <footer class="footer glass">
+        <p>
+            &copy; <span id="currentYear">2026</span>
+            <span data-i18n="footer_text">GOAI Academy - م/ أحمد الحايك</span>
+            <span class="footer-divider">|</span>
+            <span data-i18n="footer_rights">جميع الحقوق محفوظة</span>
+        </p>
+    </footer>
+
+    <!-- ========================================================= -->
+    <!-- 5. JavaScript                                              -->
+    <!-- ========================================================= -->
+    <script src="js/i18n.js"></script>
+    <script src="js/three-setup.js"></script>
+    <script src="js/particle-system.js"></script>
+    <script src="js/scene-manager.js"></script>
+    <script src="js/interactions.js"></script>
+    <script src="js/stages.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/token-calc.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/certificate.js"></script>
+    <script src="js/linkedin-share.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

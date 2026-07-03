@@ -1,0 +1,77 @@
+/* ================================================================
+   حاوية الـ 3D
+   ================================================================ */
+#three-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    /* تسمح بالنقر من خلالها */;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 50%, #081E42 0%, #050d1a 100%);
+}
+
+#three-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0.7;
+    transition: opacity 0.6s ease;
+}
+
+/* عند تحميل المحتوى، نخفف من وطأة الـ 3D */
+.loading #three-container canvas {
+    opacity: 0.3;
+}
+
+/* ================================================================
+   تأثيرات إضافية على الـ 3D
+   ================================================================ */
+/* توهج خلفي */
+#three-container::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle at 30% 70%, rgba(0, 119, 182, 0.08), transparent 70%);
+    pointer-events: none;
+}
+
+/* تدرج علوي */
+#three-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(11, 37, 69, 0.6), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ================================================================
+   عند تقليل الحركة (للأجهزة الضعيفة)
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+    #three-container canvas {
+        opacity: 0.2 !important;
+        filter: blur(2px);
+    }
+}
+
+@media (max-width: 768px) {
+    #three-container canvas {
+        opacity: 0.4 !important;
+    }
+
+    #three-container::before {
+        height: 30%;
+        background: linear-gradient(to bottom, rgba(11, 37, 69, 0.8), transparent);
+    }
+}
