@@ -1,6 +1,6 @@
 /**
  * ================================================================
- * نظام الاختبارات - Quiz System
+ * نظام الاختبارات - Quiz System (نسخة ديناميكية محسنة)
  * ================================================================
  */
 
@@ -39,6 +39,7 @@ const QUIZ_DATA = {
                 },
             ],
             passingScore: 70,
+            stageName: 'الأساسيات',
         },
         2: {
             questions: [
@@ -74,6 +75,7 @@ const QUIZ_DATA = {
                 },
             ],
             passingScore: 70,
+            stageName: 'التفاصيل',
         },
         3: {
             questions: [
@@ -129,6 +131,7 @@ const QUIZ_DATA = {
                 },
             ],
             passingScore: 70,
+            stageName: 'المتقدّم',
         },
         4: {
             questions: [
@@ -164,6 +167,7 @@ const QUIZ_DATA = {
                 },
             ],
             passingScore: 70,
+            stageName: 'التفاعلي',
         },
         5: {
             questions: [
@@ -219,22 +223,26 @@ const QUIZ_DATA = {
                 },
             ],
             passingScore: 70,
-        }
+            stageName: 'الاحتراف',
+        },
     },
     en: {
-        // سيتم إضافة الترجمة الإنجليزية هنا
-    }
+        // النسخة الإنجليزية (يمكن إضافتها لاحقاً)
+    },
 };
 
 // ================================================================
-// 2. نظام الاختبار
+// 2. تهيئة الاختبار
 // ================================================================
 
 function initQuiz(stageNum) {
     const container = document.getElementById(`quizContainer_${stageNum}`);
-    if (!container) return;
+    if (!container) {
+        console.warn('⚠️ حاوية الاختبار غير موجودة للمرحلة:', stageNum);
+        return;
+    }
 
-    const lang = STATE.language || 'ar';
+    const lang = window.STATE?.language || 'ar';
     const quizData = QUIZ_DATA[lang]?.[stageNum] || QUIZ_DATA.ar[stageNum];
 
     if (!quizData) {
@@ -242,13 +250,14 @@ function initQuiz(stageNum) {
         return;
     }
 
-    // التحقق من اجتياز الاختبار سابقاً
-    const alreadyPassed = STATE.progress.quizScores[stageNum - 1] >= quizData.passingScore;
+    const alreadyPassed = (window.STATE?.progress?.quizScores[stageNum - 1] || 0) >= quizData.passingScore;
 
     let html = `
         <div class="quiz-header">
             <h3>📝 اختبار المرحلة ${stageNum}</h3>
-            <p style="color:var(--color-text-dim);font-size:0.9rem;">${quizData.questions.length} أسئلة • النجاح: ${quizData.passingScore}%</p>
+            <p style="color:var(--color-text-dim);font-size:0.9rem;">
+                ${quizData.questions.length} أسئلة • النجاح: ${quizData.passingScore}%
+            </p>
         </div>
         <div class="quiz-questions" id="quizQuestions_${stageNum}">
     `;
@@ -259,9 +268,7 @@ function initQuiz(stageNum) {
                 <p class="q-text">${index + 1}. ${q.question}</p>
                 <div class="quiz-options">
         `;
-
         q.options.forEach((opt, optIndex) => {
-            const checked = alreadyPassed ? '' : '';
             html += `
                 <label>
                     <input type="radio" name="q${stageNum}_${index}" value="${optIndex}" ${alreadyPassed ? 'disabled' : ''} />
@@ -269,11 +276,7 @@ function initQuiz(stageNum) {
                 </label>
             `;
         });
-
-        html += `
-                </div>
-            </div>
-        `;
+        html += `</div></div>`;
     });
 
     html += `
@@ -285,24 +288,35 @@ function initQuiz(stageNum) {
         </div>
     `;
 
+    // إذا كان قد اجتاز سابقاً، عرض النتيجة
     if (alreadyPassed) {
+        const score = window.STATE.progress.quizScores[stageNum - 1] || 0;
         html += `
-            <div class="quiz-result pass">
+            <div class="quiz-result pass" id="quizResult_${stageNum}">
                 <p>✅ لقد اجتزت هذا الاختبار بنجاح!</p>
-                <p class="score">${STATE.progress.quizScores[stageNum - 1]}%</p>
+                <p class="score">${score}%</p>
+                <p style="font-size:0.85rem;color:var(--color-text-dim);">يمكنك الآن إكمال المرحلة</p>
             </div>
         `;
+    } else {
+        // إضافة حاوية للنتيجة (ستظهر بعد التقديم)
+        html += `<div id="quizResult_${stageNum}"></div>`;
     }
 
     container.innerHTML = html;
 }
 
+// ================================================================
+// 3. تقديم الاختبار (ديناميكي)
+// ================================================================
+
 function submitQuiz(stageNum) {
-    const lang = STATE.language || 'ar';
+    const lang = window.STATE?.language || 'ar';
     const quizData = QUIZ_DATA[lang]?.[stageNum] || QUIZ_DATA.ar[stageNum];
 
     if (!quizData) return;
 
+    // حساب النتيجة
     let correct = 0;
     const total = quizData.questions.length;
 
@@ -314,50 +328,87 @@ function submitQuiz(stageNum) {
     });
 
     const score = Math.round((correct / total) * 100);
-    STATE.progress.quizScores[stageNum - 1] = score;
-    saveProgress();
-
     const passed = score >= quizData.passingScore;
 
-    // عرض النتيجة
-    const container = document.getElementById(`quizContainer_${stageNum}`);
-    if (container) {
-        const resultDiv = document.createElement('div');
-        resultDiv.className = `quiz-result ${passed ? 'pass' : 'fail'}`;
-        resultDiv.innerHTML = `
-            <p>${passed ? '✅ تهانينا! لقد اجتزت الاختبار!' : '❌ لم تجتز الاختبار، حاول مرة أخرى'}</p>
-            <p class="score">${score}%</p>
-            <p style="font-size:0.85rem;color:var(--color-text-dim);">${correct} من ${total} إجابات صحيحة</p>
-            ${!passed ? '<button class="btn-secondary" onclick="initQuiz(' + stageNum + ')" style="margin-top:0.5rem;">🔄 إعادة المحاولة</button>' : ''}
-        `;
-        container.appendChild(resultDiv);
+    // حفظ النتيجة
+    window.STATE.progress.quizScores[stageNum - 1] = score;
+    if (typeof saveProgress === 'function') {
+        saveProgress();
+    }
 
-        // تعطيل الأزرار
-        const submitBtn = container.querySelector('.btn-primary');
-        if (submitBtn && passed) {
+    // تحديث لوحة التحكم
+    if (typeof updateDashboard === 'function') {
+        updateDashboard();
+    }
+
+    // عرض النتيجة في الحاوية المخصصة (استبدال النتيجة السابقة)
+    const resultContainer = document.getElementById(`quizResult_${stageNum}`);
+    if (!resultContainer) return;
+
+    // بناء رسالة النتيجة
+    let resultHTML = '';
+
+    if (passed) {
+        resultHTML = `
+            <div class="quiz-result pass">
+                <p>✅ تهانينا! لقد اجتزت الاختبار بنجاح!</p>
+                <p class="score">${score}%</p>
+                <p style="font-size:0.85rem;color:var(--color-text-dim);">${correct} من ${total} إجابات صحيحة</p>
+                <p style="font-size:0.9rem;color:var(--color-mid-blue);margin-top:0.5rem;">
+                    🎉 يمكنك الآن إكمال المرحلة!
+                </p>
+            </div>
+        `;
+        
+        // تعطيل زر التقديم
+        const submitBtn = document.querySelector(`#quizContainer_${stageNum} .btn-primary`);
+        if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.5';
             submitBtn.style.cursor = 'not-allowed';
             submitBtn.textContent = '✅ تم الاجتياز';
         }
-
-        // تحديث لوحة التحكم
-        updateDashboard();
-
-        // تحديث واجهة المرحلة
-        if (passed) {
-            const completeBtn = document.querySelector(`button[onclick*="handleStageComplete(${stageNum})"]`);
-            if (completeBtn) {
-                completeBtn.style.opacity = '1';
-                completeBtn.style.cursor = 'pointer';
-            }
+        
+        // تحديث خريطة المراحل
+        if (typeof updateStagesMap === 'function') {
+            updateStagesMap();
         }
+        
+    } else {
+        // رسالة فشل مع توجيه واضح
+        resultHTML = `
+            <div class="quiz-result fail">
+                <p>❌ لم تجتز الاختبار</p>
+                <p class="score">${score}%</p>
+                <p style="font-size:0.85rem;color:var(--color-text-dim);">${correct} من ${total} إجابات صحيحة</p>
+                <div style="margin-top:1rem;padding:1rem;background:rgba(231,76,60,0.05);border-radius:8px;border-right:3px solid #e74c3c;">
+                    <p style="font-weight:600;color:#e74c3c;">📖 نصيحة:</p>
+                    <p style="font-size:0.9rem;color:var(--color-text-dim);">
+                        راجع <strong>${quizData.stageName || 'المرحلة'}</strong> مرة أخرى، ثم حاول مجدداً.
+                        تأكد من فهمك للعناصر الأربعة: الوضوح، الهدف، الجمهور، والسياق.
+                    </p>
+                </div>
+                <button class="btn-secondary" onclick="initQuiz(${stageNum})" style="margin-top:1rem;">
+                    🔄 إعادة المحاولة
+                </button>
+            </div>
+        `;
     }
+
+    // استبدال المحتوى القديم بالجديد
+    resultContainer.innerHTML = resultHTML;
+    resultContainer.style.display = 'block';
+
+    // تمرير إلى نتيجة الاختبار
+    resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // ================================================================
-// 3. تصدير الدوال العامة
+// 4. تصدير الدوال العامة
 // ================================================================
 
+window.QUIZ_DATA = QUIZ_DATA;
 window.initQuiz = initQuiz;
 window.submitQuiz = submitQuiz;
+
+console.log('✅ quiz.js تم تحميله بنجاح (نسخة ديناميكية محسنة)');

@@ -1,6 +1,7 @@
 /**
  * ================================================================
  * حاسبة التوكنز - Token Calculator
+ * الإصدار: 2.0.0 (مع دعم النافذة المنبثقة)
  * ================================================================
  */
 
@@ -60,7 +61,7 @@ function estimateCost(tokens, model = 'gemini') {
 }
 
 // ================================================================
-// 2. الواجهة التفاعلية
+// 2. الواجهة التفاعلية (الصفحة الرئيسية)
 // ================================================================
 
 function calculateTokens() {
@@ -85,7 +86,7 @@ function calculateTokens() {
     document.getElementById('tokenCost').textContent = estimateCost(result.tokens);
 
     // عرض نصائح مخصصة
-    showCustomTips(result);
+    showCustomTips(result, 'tokenTipsList');
 
     resultsDiv.style.display = 'block';
 
@@ -96,8 +97,8 @@ function calculateTokens() {
     }, 10);
 }
 
-function showCustomTips(result) {
-    const tipsList = document.getElementById('tokenTipsList');
+function showCustomTips(result, tipsListId = 'tokenTipsList') {
+    const tipsList = document.getElementById(tipsListId);
     if (!tipsList) return;
 
     const tips = [];
@@ -122,7 +123,76 @@ function showCustomTips(result) {
 }
 
 // ================================================================
-// 3. دعم API خارجي (Gemini - اختياري)
+// 3. دوال النافذة المنبثقة (Token Modal)
+// ================================================================
+
+/**
+ * فتح نافذة حاسبة التوكنز
+ */
+function openTokenModal() {
+    const modal = document.getElementById('tokenModal');
+    const input = document.getElementById('tokenModalInput');
+    const results = document.getElementById('tokenModalResults');
+    
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // تنظيف الحقل والنتائج السابقة
+        if (input) {
+            input.value = '';
+            input.focus();
+        }
+        if (results) {
+            results.style.display = 'none';
+        }
+    }
+}
+
+/**
+ * إغلاق نافذة حاسبة التوكنز
+ */
+function closeTokenModal() {
+    const modal = document.getElementById('tokenModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+/**
+ * حساب التوكنز داخل النافذة المنبثقة
+ */
+function calculateTokensModal() {
+    const input = document.getElementById('tokenModalInput');
+    const resultsDiv = document.getElementById('tokenModalResults');
+
+    if (!input || !resultsDiv) return;
+
+    const text = input.value;
+
+    if (!text || text.trim().length === 0) {
+        alert('⚠️ الرجاء إدخال النص أولاً!');
+        return;
+    }
+
+    const result = estimateTokens(text);
+
+    // عرض النتائج
+    document.getElementById('tokenModalCount').textContent = result.tokens;
+    document.getElementById('tokenModalWords').textContent = result.words;
+    document.getElementById('tokenModalChars').textContent = result.chars;
+    document.getElementById('tokenModalCost').textContent = estimateCost(result.tokens);
+
+    // عرض النصائح المخصصة
+    showCustomTips(result, 'tokenModalTipsList');
+
+    resultsDiv.style.display = 'block';
+    resultsDiv.style.animation = 'fadeInUp 0.4s ease';
+}
+
+// ================================================================
+// 4. دعم API خارجي (Gemini - اختياري)
 // ================================================================
 
 /**
@@ -152,9 +222,57 @@ async function calculateTokensGemini(text, apiKey) {
 }
 
 // ================================================================
-// 4. تصدير الدوال العامة
+// 5. إغلاق النافذة عند الضغط خارجها أو زر Escape
+// ================================================================
+
+// إغلاق عند الضغط خارج النافذة
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('tokenModal');
+    if (e.target === modal) {
+        closeTokenModal();
+    }
+});
+
+// إغلاق عند الضغط على زر Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeTokenModal();
+    }
+});
+
+// الضغط على Enter في حقل الإدخال (النافذة المنبثقة)
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('tokenModalInput');
+    if (input) {
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.shiftKey === false) {
+                e.preventDefault();
+                calculateTokensModal();
+            }
+        });
+    }
+    
+    // الضغط على Enter في حقل الإدخال (الصفحة الرئيسية)
+    const mainInput = document.getElementById('tokenInput');
+    if (mainInput) {
+        mainInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.shiftKey === false) {
+                e.preventDefault();
+                calculateTokens();
+            }
+        });
+    }
+});
+
+// ================================================================
+// 6. تصدير الدوال العامة
 // ================================================================
 
 window.calculateTokens = calculateTokens;
 window.estimateTokens = estimateTokens;
 window.calculateTokensGemini = calculateTokensGemini;
+window.openTokenModal = openTokenModal;
+window.closeTokenModal = closeTokenModal;
+window.calculateTokensModal = calculateTokensModal;
+
+console.log('✅ token-calc.js تم تحميله بنجاح (الإصدار 2.0.0)');

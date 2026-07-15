@@ -45,6 +45,13 @@ const CONTENT = {
         cert_download_btn: '⬇️ تحميل PDF',
         footer_text: 'أكاديمية هندسة الأوامر - م/ أحمد الحايك',
         footer_rights: 'جميع الحقوق محفوظة',
+        // في القسم العربي
+cert_download_png: '🖼️ تحميل PNG',
+cert_download_pdf: '📄 تحميل PDF',
+
+// في القسم الإنجليزي
+cert_download_png: '🖼️ Download PNG',
+cert_download_pdf: '📄 Download PDF',
     },
     en: {
         hero_title: '🚀 Master Prompt Engineering',

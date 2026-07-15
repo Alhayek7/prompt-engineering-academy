@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GOAI Academy | أكاديمية جي أو إيه آي</title>
+    <title>Alhayek Academy | أكاديمية الحايك</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
@@ -29,24 +29,31 @@
     <div id="three-container" aria-hidden="true"></div>
 
     <!-- ========================================================= -->
-    <!-- 2. شريط التنقل (Navbar) - تم تعديل الشعار هنا            -->
+    <!-- 2. شريط التنقل (Navbar) - ثابت ومتمركز                    -->
     <!-- ========================================================= -->
     <nav class="navbar glass" role="navigation" aria-label="القائمة الرئيسية">
+        <!-- ===== الشعار ===== -->
         <div class="nav-brand">
-            <!-- ===== 🟢 الشعار الجديد (صورة) ===== -->
-            <!-- استبدل الرابط أدناه برابط شعارك الحقيقي -->
-            <img src="assets/images/logo-goai.png" alt="GOAI Academy Logo" class="nav-logo" />
-            
-            <!-- ===== 📝 النص الاحتياطي (يظهر إذا لم تظهر الصورة) ===== -->
-            <span class="brand-text">GOAI</span>
-            <span class="brand-sub">Academy</span>
+            <img src="assets/images/logo-alhayek.png" alt="Alhayek Academy" class="nav-logo" />
+            <div class="nav-brand-text">
+                <span class="brand-name">ALHAYEK</span>
+                <span class="brand-sub">Academy</span>
+            </div>
         </div>
 
-        <div class="nav-lang">
-            <button class="lang-btn active" data-lang="ar" aria-label="اللغة العربية">عربي</button>
-            <button class="lang-btn" data-lang="en" aria-label="English">English</button>
+        <!-- ===== أزرار اللغة (ثابتة في المنتصف) ===== -->
+        <div class="nav-center">
+            <div class="nav-lang">
+                <button class="lang-btn active" data-lang="ar" aria-label="اللغة العربية">
+                    <span class="lang-icon">🇸🇦</span> عربي
+                </button>
+                <button class="lang-btn" data-lang="en" aria-label="English">
+                    <span class="lang-icon">🇬🇧</span> English
+                </button>
+            </div>
         </div>
 
+        <!-- ===== شريط التقدم (ثابت في اليمين) ===== -->
         <div class="nav-progress">
             <span class="progress-label" data-i18n="progress">التقدم</span>
             <div class="progress-bar">
@@ -66,9 +73,12 @@
         <!-- ========================================================= -->
         <section id="home" class="stage-section active">
             <div class="hero glass">
-                <!-- ===== 🟢 الشعار 3D أو صورة الشعار في الهيرو ===== -->
-                <div class="hero-logo-container">
-                    <img src="assets/images/logo-goai-hero.png" alt="GOAI Academy" class="hero-logo" />
+                <!-- ===== الشعار الدائري في المنتصف ===== -->
+                <div class="hero-logo-wrapper">
+                    <div class="hero-logo-ring">
+                        <img src="assets/images/logo-alhayek-hero.png" alt="Alhayek Academy" class="hero-logo-image" />
+                    </div>
+                    <div class="hero-logo-orbit"></div>
                 </div>
 
                 <h1 class="hero-title" data-i18n="hero_title">
@@ -98,7 +108,7 @@
                 </button>
             </div>
 
-            <!-- خريطة المراحل -->
+            <!-- ===== خريطة المراحل ===== -->
             <div class="stages-map">
                 <div class="stage-node" data-stage="1" onclick="goToStage(1)">
                     <div class="node-circle">1</div>
@@ -133,7 +143,7 @@
         <div id="stages-container"></div>
 
         <!-- ========================================================= -->
-        <!-- 3.3 حاسبة التوكنز                                         -->
+        <!-- 3.3 حاسبة التوكنز (تُظهر في الصفحة الرئيسية فقط)        -->
         <!-- ========================================================= -->
         <section id="token-calculator" class="stage-section">
             <div class="glass token-section">
@@ -212,9 +222,7 @@
 
                     <div class="dashboard-card full-width">
                         <h3 data-i18n="stage_performance">أداء المراحل</h3>
-                        <div id="stagePerformanceChart">
-                            <!-- سيتم توليده عبر JavaScript -->
-                        </div>
+                        <div id="stagePerformanceChart"></div>
                     </div>
 
                     <div class="dashboard-card full-width">
@@ -228,26 +236,27 @@
         </section>
 
         <!-- ========================================================= -->
-        <!-- 3.5 الشهادة (تظهر عند اكتمال جميع المراحل)              -->
+        <!-- 3.5 الشهادة                                               -->
         <!-- ========================================================= -->
         <section id="certificate-section" class="stage-section">
             <div class="glass certificate-section">
                 <h2 data-i18n="cert_title">🎓 شهادة الإنجاز</h2>
                 <p data-i18n="cert_sub">تهانينا! لقد أكملت جميع المراحل بنجاح</p>
 
-                <div id="certificatePreview" class="certificate-preview">
-                    <!-- سيتم إنشاء الشهادة عبر JavaScript -->
-                </div>
+                <div id="certificatePreview" class="certificate-preview"></div>
 
                 <div class="cert-actions">
-                    <button class="btn-primary" onclick="generateCertificate()" data-i18n="cert_request_btn">
+                    <button class="btn-primary" onclick="openModal()" data-i18n="cert_request_btn">
                         📜 طلب الشهادة
+                    </button>
+                    <button class="btn-secondary" onclick="downloadCertificatePNG()" data-i18n="cert_download_png">
+                        🖼️ تحميل PNG
+                    </button>
+                    <button class="btn-secondary" onclick="downloadCertificatePDF()" data-i18n="cert_download_pdf">
+                        📄 تحميل PDF
                     </button>
                     <button class="btn-secondary" onclick="shareLinkedIn()" data-i18n="cert_share_btn">
                         🔗 مشاركة على لينكدإن
-                    </button>
-                    <button class="btn-secondary" onclick="downloadCertificate()" data-i18n="cert_download_btn">
-                        ⬇️ تحميل PDF
                     </button>
                 </div>
             </div>
@@ -256,12 +265,96 @@
     </main>
 
     <!-- ========================================================= -->
+<!-- خريطة المسار التعليمي (الجانب الأيسر)                    -->
+<!-- ========================================================= -->
+<aside class="learning-path">
+    <div class="path-header">
+        <span class="path-icon">🗺️</span>
+        <h3>مسار التعلم</h3>
+        <span class="path-progress" id="pathProgress">0%</span>
+    </div>
+    
+    <div class="path-container">
+        <!-- المرحلة 1 -->
+        <div class="path-node completed" data-stage="1" onclick="navigateToStage(1)">
+            <div class="node-marker">
+                <span class="node-number">1</span>
+                <span class="node-icon">📖</span>
+                <span class="node-check">✅</span>
+            </div>
+            <div class="node-content">
+                <span class="node-title">الأساسيات</span>
+                <span class="node-status">مكتملة</span>
+            </div>
+            <div class="node-glow"></div>
+        </div>
+        <div class="path-line completed"></div>
+        
+        <!-- المرحلة 2 -->
+        <div class="path-node active" data-stage="2" onclick="navigateToStage(2)">
+            <div class="node-marker">
+                <span class="node-number">2</span>
+                <span class="node-icon">📝</span>
+                <span class="node-check">▶️</span>
+            </div>
+            <div class="node-content">
+                <span class="node-title">التفاصيل</span>
+                <span class="node-status">جاري</span>
+            </div>
+            <div class="node-glow"></div>
+        </div>
+        <div class="path-line"></div>
+        
+        <!-- المرحلة 3 -->
+        <div class="path-node locked" data-stage="3">
+            <div class="node-marker">
+                <span class="node-number">3</span>
+                <span class="node-icon">⚡</span>
+                <span class="node-check">🔒</span>
+            </div>
+            <div class="node-content">
+                <span class="node-title">المتقدّم</span>
+                <span class="node-status">مغلق</span>
+            </div>
+        </div>
+        <div class="path-line"></div>
+        
+        <!-- المرحلة 4 -->
+        <div class="path-node locked" data-stage="4">
+            <div class="node-marker">
+                <span class="node-number">4</span>
+                <span class="node-icon">🔄</span>
+                <span class="node-check">🔒</span>
+            </div>
+            <div class="node-content">
+                <span class="node-title">التفاعلي</span>
+                <span class="node-status">مغلق</span>
+            </div>
+        </div>
+        <div class="path-line"></div>
+        
+        <!-- المرحلة 5 -->
+        <div class="path-node locked" data-stage="5">
+            <div class="node-marker">
+                <span class="node-number">5</span>
+                <span class="node-icon">🏆</span>
+                <span class="node-check">🔒</span>
+            </div>
+            <div class="node-content">
+                <span class="node-title">الاحتراف</span>
+                <span class="node-status">مغلق</span>
+            </div>
+        </div>
+    </div>
+</aside>
+
+    <!-- ========================================================= -->
     <!-- 4. التذييل (Footer)                                       -->
     <!-- ========================================================= -->
     <footer class="footer glass">
         <p>
             &copy; <span id="currentYear">2026</span>
-            <span data-i18n="footer_text">GOAI Academy - م/ أحمد الحايك</span>
+            <span data-i18n="footer_text">Alhayek Academy - م/ أحمد الحايك</span>
             <span class="footer-divider">|</span>
             <span data-i18n="footer_rights">جميع الحقوق محفوظة</span>
         </p>
@@ -283,6 +376,160 @@
     <script src="js/certificate.js"></script>
     <script src="js/linkedin-share.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- ========================================================= -->
+    <!-- نافذة طلب الاسم (Modal) - نسخة مطورة مع خيارات اللغة   -->
+    <!-- ========================================================= -->
+    <div id="certModal" class="modal-overlay">
+        <div class="modal-container">
+            <!-- زر الإغلاق -->
+            <button class="modal-close" onclick="closeModal()" aria-label="إغلاق">
+                <span class="close-icon">✕</span>
+            </button>
+
+            <!-- أيقونة الشهادة -->
+            <div class="modal-icon">🎓</div>
+
+            <!-- العنوان -->
+            <h2 class="modal-title" data-i18n="modal_title">📜 طلب الشهادة</h2>
+            <p class="modal-subtitle" data-i18n="modal_subtitle">
+                أدخل اسمك الكامل واختر لغة الشهادة
+            </p>
+
+            <!-- حقل الإدخال -->
+            <div class="modal-input-group">
+                <label class="modal-label" data-i18n="modal_name_label">الاسم الكامل</label>
+                <input type="text" id="userNameInput" class="modal-input" 
+                       placeholder="مثال: أحمد محمد الحايك" 
+                       maxlength="50"
+                       autofocus />
+                <span class="modal-input-focus"></span>
+            </div>
+
+            <!-- اختيار اللغة -->
+            <div class="modal-lang-group">
+                <label class="modal-label" data-i18n="modal_lang_label">لغة الشهادة</label>
+                <div class="modal-lang-options">
+                    <button class="modal-lang-btn active" data-lang="ar" onclick="selectCertLang('ar')">
+                        <span class="lang-flag">🇸🇦</span>
+                        العربية
+                    </button>
+                    <button class="modal-lang-btn" data-lang="en" onclick="selectCertLang('en')">
+                        <span class="lang-flag">🇬🇧</span>
+                        English
+                    </button>
+                </div>
+            </div>
+
+            <!-- رسالة الخطأ (مخفية) -->
+            <p id="modalError" class="modal-error">
+                ⚠️ الرجاء إدخال اسم صحيح (على الأقل حرفان)
+            </p>
+
+            <!-- أزرار الإجراء -->
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-primary" onclick="confirmCertificate()">
+                    🎓 إصدار الشهادة
+                </button>
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal()">
+                    إلغاء
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- مؤشر التحميل (Loading Overlay)                           -->
+    <!-- ========================================================= -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p class="loading-text" id="loadingText">⏳ جاري تحميل الشهادة...</p>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- زر حاسبة التوكنز العائم (يظهر في جميع الصفحات)          -->
+    <!-- ========================================================= -->
+    <button class="token-floating-btn" onclick="openTokenModal()" aria-label="حاسبة التوكنز">
+        <span class="token-floating-icon">🧮</span>
+        <span class="token-floating-label">حاسبة التوكنز</span>
+    </button>
+
+    <!-- ========================================================= -->
+    <!-- نافذة حاسبة التوكنز المنبثقة (Modal)                     -->
+    <!-- ========================================================= -->
+    <div id="tokenModal" class="token-modal-overlay">
+        <div class="token-modal-container">
+            <!-- زر الإغلاق -->
+            <button class="token-modal-close" onclick="closeTokenModal()" aria-label="إغلاق">
+                <span class="close-icon">✕</span>
+            </button>
+
+            <!-- الأيقونة -->
+            <div class="token-modal-icon">🧮</div>
+
+            <!-- العنوان -->
+            <h2 class="token-modal-title">حاسبة التوكنز</h2>
+            <p class="token-modal-subtitle">تعرف على عدد التوكنز التي يستهلكها نصك</p>
+
+            <!-- حقل الإدخال -->
+            <div class="token-modal-input-group">
+                <textarea id="tokenModalInput" placeholder="اكتب أو الصق النص هنا..." rows="5" aria-label="نص لحساب التوكنز"></textarea>
+            </div>
+
+            <!-- ===== اختيار النموذج ===== -->
+<div class="token-modal-model-group">
+    <label class="token-modal-label">اختر النموذج</label>
+    <select id="tokenModalModel" class="token-modal-select" onchange="updateModelInfo()">
+        <option value="gemini">Gemini (Google)</option>
+        <option value="gpt4" selected>GPT-4 (OpenAI)</option>
+        <option value="gpt4-turbo">GPT-4 Turbo</option>
+        <option value="claude">Claude 3.5 Sonnet</option>
+        <option value="claude-opus">Claude 3 Opus</option>
+        <option value="llama">Llama 3 (Meta)</option>
+        <option value="mistral">Mistral Large</option>
+    </select>
+    <div class="token-model-info" id="tokenModelInfo">
+        <span class="model-rate">💰 $0.0005 / 1K tokens</span>
+        <span class="model-context">📊 128K context</span>
+    </div>
+</div>
+
+            <!-- زر الحساب -->
+            <button class="token-modal-btn" onclick="calculateTokensModal()">
+                🔢 احسب التوكنز
+            </button>
+
+            <!-- النتائج -->
+            <div id="tokenModalResults" class="token-modal-results" style="display:none;">
+                <div class="token-modal-result-grid">
+                    <div class="token-modal-result-item">
+                        <span class="token-modal-result-label">عدد التوكنز</span>
+                        <span class="token-modal-result-value" id="tokenModalCount">0</span>
+                    </div>
+                    <div class="token-modal-result-item">
+                        <span class="token-modal-result-label">عدد الكلمات</span>
+                        <span class="token-modal-result-value" id="tokenModalWords">0</span>
+                    </div>
+                    <div class="token-modal-result-item">
+                        <span class="token-modal-result-label">عدد الأحرف</span>
+                        <span class="token-modal-result-value" id="tokenModalChars">0</span>
+                    </div>
+                    <div class="token-modal-result-item">
+                        <span class="token-modal-result-label">التكلفة التقريبية</span>
+                        <span class="token-modal-result-value" id="tokenModalCost">$0.0000</span>
+                    </div>
+                </div>
+                <div class="token-modal-tips">
+                    <p>💡 نصائح لتقليل التوكنز:</p>
+                    <ul id="tokenModalTipsList">
+                        <li>استخدم كلمات مختصرة بدل الجمل الطويلة</li>
+                        <li>أزل التكرار غير الضروري</li>
+                        <li>ضع الأهم في البداية والنهاية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

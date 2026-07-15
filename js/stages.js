@@ -11,30 +11,241 @@
 const STAGES_DATA = {
     ar: {
         1: {
-            number: 1,
-            title: '📖 الأساسيات',
-            description: 'تعلم أساسيات صياغة الأوامر: الوضوح، تحديد الهدف، الجمهور، والسياق.',
-            body: `
-                <p>هندسة الأوامر (Prompt Engineering) هي فن صياغة التعليمات لنماذج الذكاء الاصطناعي للحصول على أفضل النتائج الممكنة.</p>
-                
-                <h4>🎯 العناصر الأساسية للأمر الجيد:</h4>
-                <ul>
-                    <li><strong>الوضوح:</strong> استخدم لغة مباشرة ومحددة</li>
-                    <li><strong>الهدف:</strong> حدد ما تريده بوضوح</li>
-                    <li><strong>الجمهور:</strong> من سيقرأ أو يستخدم المخرجات؟</li>
-                    <li><strong>السياق:</strong> قدم خلفية كافية عن الموضوع</li>
-                </ul>
-                
-                <div class="example-box">
-                    <strong>✏️ مثال:</strong><br />
-                    ❌ ضعيف: "اكتب لي شيئاً عن التكنولوجيا"<br />
-                    ✅ قوي: "اكتب مقالاً من 200 كلمة عن الذكاء الاصطناعي في الطب، موجه لطلاب الطب، بلغة عربية مبسطة"
+    number: 1,
+    title: '📖 الأساسيات - Fundamentals',
+    description: 'تعلم أساسيات صياغة الأوامر: الوضوح، تحديد الهدف، الجمهور، والسياق.',
+    body: `
+        <!-- ===== شريط التقدم داخل المرحلة ===== -->
+        <div class="stage-progress-bar">
+            <div class="stage-progress-step active">
+                <span class="step-number">1</span>
+                <span class="step-label">الوضوح</span>
+            </div>
+            <div class="stage-progress-line"></div>
+            <div class="stage-progress-step">
+                <span class="step-number">2</span>
+                <span class="step-label">الهدف</span>
+            </div>
+            <div class="stage-progress-line"></div>
+            <div class="stage-progress-step">
+                <span class="step-number">3</span>
+                <span class="step-label">الجمهور</span>
+            </div>
+            <div class="stage-progress-line"></div>
+            <div class="stage-progress-step">
+                <span class="step-number">4</span>
+                <span class="step-label">السياق</span>
+            </div>
+        </div>
+
+        <!-- ===== مقدمة المرحلة ===== -->
+        <div class="stage-intro">
+            <div class="stage-intro-icon">🎯</div>
+            <h3>مرحباً بك في رحلة تعلم هندسة الأوامر!</h3>
+            <p>
+                في هذه المرحلة، ستتعلم <strong>الأساسيات</strong> التي تحتاجها لصياغة أوامر فعالة لنماذج الذكاء الاصطناعي. 
+                سنغطي العناصر الأربعة الرئيسية للأمر الجيد: <strong>الوضوح، الهدف، الجمهور، والسياق</strong>.
+            </p>
+            <div class="stage-intro-stats">
+                <div class="intro-stat">
+                    <span class="intro-stat-number">4</span>
+                    <span class="intro-stat-label">عناصر رئيسية</span>
                 </div>
-                
-                <h4>💡 نصيحة ذهبية:</h4>
-                <p>كلما زادت التفاصيل التي تقدمها، قلّت التخمينات التي يقوم بها النموذج، وزادت دقة النتيجة.</p>
-            `
-        },
+                <div class="intro-stat">
+                    <span class="intro-stat-number">3</span>
+                    <span class="intro-stat-label">أسئلة اختبار</span>
+                </div>
+                <div class="intro-stat">
+                    <span class="intro-stat-number">70%</span>
+                    <span class="intro-stat-label">نسبة النجاح</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== العنصر الأول: الوضوح ===== -->
+        <div class="stage-concept" id="concept-clarity">
+            <div class="concept-header">
+                <span class="concept-number">1</span>
+                <h4>🔍 الوضوح (Clarity)</h4>
+                <span class="concept-badge">الأهم</span>
+            </div>
+            <p>استخدم لغة <strong>مباشرة ومحددة</strong>، وتجنب الغموض. كلما كان سؤالك أو أمرك واضحاً، كانت الإجابة أدق.</p>
+            
+            <div class="example-box compare interactive" onclick="toggleCompare(this)">
+                <div class="compare-item bad">
+                    <span class="compare-label">❌ ضعيف</span>
+                    <p>"اكتب لي شيئاً عن التكنولوجيا"</p>
+                </div>
+                <div class="compare-arrow">→</div>
+                <div class="compare-item good">
+                    <span class="compare-label">✅ قوي</span>
+                    <p>"اكتب مقالاً من 200 كلمة عن الذكاء الاصطناعي في الطب، موجه لطلاب الطب، بلغة عربية مبسطة"</p>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <span class="tip-icon">💡</span>
+                <div>
+                    <p><strong>نصيحة ذهبية:</strong></p>
+                    <p>تخيل أنك تتحدث إلى شخص لا يعرف شيئاً عن الموضوع. قدم تفاصيل كافية لي فهم ما تريد بالضبط.</p>
+                </div>
+            </div>
+
+            <!-- عنصر تفاعلي: اختر الإجابة الصحيحة -->
+            <div class="interactive-quiz mini">
+                <p class="mini-quiz-question">❓ أي من هذه الجمل أكثر وضوحاً؟</p>
+                <div class="mini-options">
+                    <button class="mini-option" onclick="checkMiniQuiz(this, false)">
+                        "اكتب لي عن الذكاء الاصطناعي"
+                    </button>
+                    <button class="mini-option" onclick="checkMiniQuiz(this, true)">
+                        "اكتب مقالاً من 300 كلمة عن تطبيقات الذكاء الاصطناعي في التعليم، موجه لمعلمي المرحلة الثانوية"
+                    </button>
+                </div>
+                <div class="mini-feedback" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- ===== العنصر الثاني: الهدف ===== -->
+        <div class="stage-concept" id="concept-goal">
+            <div class="concept-header">
+                <span class="concept-number">2</span>
+                <h4>🎯 الهدف (Goal)</h4>
+            </div>
+            <p>حدد <strong>ما تريده بوضوح</strong> من النموذج. هل تريد شرحاً؟ قائمة؟ تحليلاً؟ مقارنة؟</p>
+            
+            <div class="example-box">
+                <p><strong>✏️ أمثلة على أهداف مختلفة:</strong></p>
+                <div class="goal-grid">
+                    <div class="goal-card">
+                        <span class="goal-icon">📖</span>
+                        <h5>شرح</h5>
+                        <p>"اشرح لي مفهوم الذكاء الاصطناعي بعبارات بسيطة"</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="goal-icon">📋</span>
+                        <h5>قائمة</h5>
+                        <p>"أعطني قائمة بأفضل 5 لغات برمجة للمبتدئين"</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="goal-icon">📊</span>
+                        <h5>تحليل</h5>
+                        <p>"حلل إيجابيات وسلبيات العمل عن بُعد"</p>
+                    </div>
+                    <div class="goal-card">
+                        <span class="goal-icon">⚖️</span>
+                        <h5>مقارنة</h5>
+                        <p>"قارن بين التعلم التقليدي والتعلم الذاتي"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== العنصر الثالث: الجمهور ===== -->
+        <div class="stage-concept" id="concept-audience">
+            <div class="concept-header">
+                <span class="concept-number">3</span>
+                <h4>👥 الجمهور (Audience)</h4>
+            </div>
+            <p>من سيقرأ أو يستخدم المخرجات؟ <strong>تحديد الجمهور</strong> يساعد النموذج في اختيار النغمة والمحتوى المناسب.</p>
+            
+            <div class="audience-grid">
+                <div class="audience-card" onclick="this.classList.toggle('selected')">
+                    <span class="audience-icon">👶</span>
+                    <h5>مبتدئ</h5>
+                    <p>لغة بسيطة، أمثلة عملية، شرح أساسي</p>
+                    <span class="audience-tag">للنقر</span>
+                </div>
+                <div class="audience-card" onclick="this.classList.toggle('selected')">
+                    <span class="audience-icon">🧑‍💻</span>
+                    <h5>متخصص</h5>
+                    <p>مصطلحات تقنية، تحليل عميق، تفاصيل دقيقة</p>
+                    <span class="audience-tag">للنقر</span>
+                </div>
+                <div class="audience-card" onclick="this.classList.toggle('selected')">
+                    <span class="audience-icon">👔</span>
+                    <h5>مدير تنفيذي</h5>
+                    <p>لغة رسمية، ملخص تنفيذي، توصيات واضحة</p>
+                    <span class="audience-tag">للنقر</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== العنصر الرابع: السياق ===== -->
+        <div class="stage-concept" id="concept-context">
+            <div class="concept-header">
+                <span class="concept-number">4</span>
+                <h4>🌐 السياق (Context)</h4>
+            </div>
+            <p>قدم <strong>خلفية كافية</strong> عن الموضوع. السياق يساعد النموذج على فهم ما تتحدث عنه ويقلل من التخمينات.</p>
+            
+            <div class="example-box compare-context">
+                <div class="context-item bad">
+                    <span class="context-label">❌ بدون سياق</span>
+                    <p>"اكتب لي عن التسويق"</p>
+                </div>
+                <div class="context-arrow">↓</div>
+                <div class="context-item good">
+                    <span class="context-label">✅ مع سياق</span>
+                    <p>"اكتب لي عن التسويق الرقمي في مجال التعليم، مع التركيز على وسائل التواصل الاجتماعي، واستهدف الشركات الناشئة الصغيرة"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ملخص المرحلة ===== -->
+        <div class="stage-summary">
+            <h4>📌 ملخص المرحلة الأولى</h4>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-icon">🔍</span>
+                    <span>الوضوح: كن محدداً</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">🎯</span>
+                    <span>الهدف: حدد ما تريد</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">👥</span>
+                    <span>الجمهور: اختر النغمة المناسبة</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">🌐</span>
+                    <span>السياق: قدم خلفية كافية</span>
+                </div>
+            </div>
+            <div class="golden-rule">
+                <span>🏆</span>
+                <div>
+                    <p><strong>القاعدة الذهبية:</strong></p>
+                    <p>"كلما زادت التفاصيل التي تقدمها، قلّت التخمينات التي يقوم بها النموذج، وزادت دقة النتيجة."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== تمرين تفاعلي ===== -->
+        <div class="stage-exercise" id="stageExercise">
+            <h4>✍️ تمرين عملي</h4>
+            <p>حاول تحسين الأمر التالي بإضافة الوضوح، الهدف، الجمهور، والسياق:</p>
+            <div class="exercise-box">
+                <p class="exercise-prompt">❌ "اكتب لي عن الذكاء الاصطناعي"</p>
+                <button class="btn-exercise" onclick="toggleExerciseHint()">💡 اعرض التلميح</button>
+                <div id="exerciseHint" style="display:none; margin-top: 1rem; padding: 1rem; background: rgba(37,83,138,0.05); border-radius: 8px; border-right: 3px solid #25538A;">
+                    <p><strong>💡 التلميح:</strong> فكر في:</p>
+                    <ul>
+                        <li><strong>الوضوح:</strong> أي جانب من الذكاء الاصطناعي؟ (مثل: التعليم، الطب، الأعمال)</li>
+                        <li><strong>الهدف:</strong> هل تريد شرحاً، تحليلاً، أم قائمة؟</li>
+                        <li><strong>الجمهور:</strong> من سيقرأ هذا؟ (مثل: طلاب، معلمين، مبتدئين)</li>
+                        <li><strong>السياق:</strong> ما هي الخلفية المطلوبة؟</li>
+                    </ul>
+                    <div style="margin-top: 0.8rem; padding: 0.8rem; background: rgba(37,83,138,0.05); border-radius: 6px;">
+                        <p style="font-weight:600;color:#25538A;">✅ مثال مقترح:</p>
+                        <p>"اكتب مقالاً من 300 كلمة عن تطبيقات الذكاء الاصطناعي في التعليم، موجه لمعلمي المدارس الثانوية، مع أمثلة عملية من الواقع."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+},
         2: {
             number: 2,
             title: '📝 التوسع بالتفاصيل',
@@ -235,3 +446,74 @@ function checkQuizPassed(stageNum) {
 window.getStageContent = getStageContent;
 window.handleStageComplete = handleStageComplete;
 window.checkQuizPassed = checkQuizPassed;
+
+// ================================================================
+// دوال التفاعل للمرحلة الأولى
+// ================================================================
+
+/**
+ * تبديل عرض المقارنة (للعناصر التفاعلية)
+ */
+function toggleCompare(element) {
+    element.classList.toggle('expanded');
+}
+
+/**
+ * اختبار مصغر (Mini Quiz)
+ */
+function checkMiniQuiz(button, isCorrect) {
+    const container = button.closest('.interactive-quiz.mini');
+    const feedback = container.querySelector('.mini-feedback');
+    const allOptions = container.querySelectorAll('.mini-option');
+    
+    // تعطيل جميع الأزرار
+    allOptions.forEach(opt => {
+        opt.classList.add('disabled');
+        opt.style.pointerEvents = 'none';
+    });
+    
+    // تمييز الإجابة
+    if (isCorrect) {
+        button.classList.add('correct');
+        feedback.style.display = 'block';
+        feedback.className = 'mini-feedback success';
+        feedback.textContent = '✅ إجابة صحيحة! الجملة الثانية أكثر وضوحاً وتحديداً.';
+    } else {
+        button.classList.add('wrong');
+        feedback.style.display = 'block';
+        feedback.className = 'mini-feedback error';
+        feedback.textContent = '❌ ليس تماماً. الجملة الثانية أكثر وضوحاً لأنها تحدد الموضوع، الطول، الجمهور، والمجال.';
+        
+        // إظهار الإجابة الصحيحة
+        allOptions.forEach(opt => {
+            if (opt !== button && opt.textContent.includes('300 كلمة')) {
+                opt.classList.add('correct');
+            }
+        });
+    }
+}
+
+/**
+ * تبديل عرض تلميح التمرين
+ */
+function toggleExerciseHint() {
+    const hint = document.getElementById('exerciseHint');
+    if (hint) {
+        if (hint.style.display === 'none') {
+            hint.style.display = 'block';
+            hint.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            hint.style.display = 'none';
+        }
+    }
+}
+
+// ================================================================
+// تصدير الدوال
+// ================================================================
+
+window.toggleCompare = toggleCompare;
+window.checkMiniQuiz = checkMiniQuiz;
+window.toggleExerciseHint = toggleExerciseHint;
+
+console.log('✅ دوال التفاعل للمرحلة الأولى تم تحميلها');

@@ -9,9 +9,8 @@
     height: 100vh;
     z-index: 0;
     pointer-events: none;
-    /* تسمح بالنقر من خلالها */;
     overflow: hidden;
-    background: radial-gradient(ellipse at 50% 50%, #081E42 0%, #050d1a 100%);
+    background: transparent; /* أو rgba(179, 229, 252, 0.3) */
 }
 
 #three-container canvas {
